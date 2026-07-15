@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>The Flour-Free Dessert Tin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF5F1;
+    --card: #FFFFFF;
+    --ink: #35241C;
+    --ink-soft: #83705F;
+    --berry: #C2455C;
+    --line: #EBDCD3;
+    --line-dot: #DCC8BC;
+    --note-bg: #FBF6F2;
+    --cocoa: #52341F;
+    --coconut: #8A6B3F;
+    --peanut: #A2661F;
+    --mocha: #74503D;
+    --strawberry: #C04F66;
+    --lemon: #A3791C;
+    --berrytab: #9A4B68;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Karla', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 20px 64px;
+  }
+
+  .wrap { max-width: 860px; margin: 0 auto; }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    text-align: center;
+    padding: 72px 0 40px;
+  }
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--berry);
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: 'Young Serif', Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: clamp(2.2rem, 5.5vw, 3.4rem);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+  .lede {
+    max-width: 560px;
+    margin: 20px auto 0;
+    color: var(--ink-soft);
+    font-size: 17px;
+  }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Index ---------- */
+  .index {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 26px 0 30px;
+    margin-bottom: 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+  .index-title {
+    font-family: 'Karla', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .chips { display: flex; flex-direction: column; gap: 8px; }
+  .chip {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 9px 14px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .chip:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(53, 36, 28, 0.08);
+  }
+  .chip .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--c);
+    flex: none;
+    align-self: center;
+  }
+  .chip .chip-meta {
+    margin-left: auto;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* ---------- Sections ---------- */
+  .section { margin-bottom: 72px; }
+  .section-head { max-width: 560px; margin-bottom: 8px; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--berry);
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Young Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: 1.7rem;
+    line-height: 1.2;
+  }
+  .section-note { color: var(--ink-soft); margin-top: 10px; }
+
+  /* ---------- Recipe card ---------- */
+  .card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--flavor);
+    border-radius: 14px;
+    padding: 30px 34px 28px;
+    margin-top: 58px;
+    scroll-margin-top: 32px;
+  }
+  .tab {
+    position: absolute;
+    top: -3px;
+    left: 26px;
+    transform: translateY(-100%);
+    background: var(--flavor);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 16px 5px;
+    border-radius: 8px 8px 0 0;
+  }
+  .card-head { padding-bottom: 22px; }
+  .card-title {
+    font-family: 'Young Serif', Georgia, serif;
+    font-weight: 400;
+    font-size: 1.65rem;
+    line-height: 1.2;
+  }
+  .desc { color: var(--ink-soft); margin-top: 8px; max-width: 520px; }
+  .meta {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 0;
+    margin-top: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .meta li { display: flex; align-items: center; }
+  .meta li + li::before {
+    content: "·";
+    margin: 0 10px;
+    color: var(--line-dot);
+    font-weight: 700;
+  }
+  .meta .stat { color: var(--flavor); }
+
+  .card-body {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 34px;
+    border-top: 1px dashed var(--line-dot);
+    padding-top: 24px;
+  }
+  .col-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+  .ingredients ul { list-style: none; }
+  .ingredients li {
+    padding: 7px 0;
+    border-bottom: 1px dotted var(--line-dot);
+    font-size: 15px;
+  }
+  .ingredients li:last-child { border-bottom: none; }
+  .ingredients b { font-weight: 700; }
+  .opt { color: var(--ink-soft); font-size: 13px; }
+
+  .method ol {
+    list-style: none;
+    counter-reset: step;
+  }
+  .method li {
+    counter-increment: step;
+    position: relative;
+    padding: 0 0 18px 44px;
+    font-size: 15.5px;
+  }
+  .method li:last-child { padding-bottom: 0; }
+  .method li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 28px;
+    height: 28px;
+    border: 1.5px solid var(--flavor);
+    color: var(--flavor);
+    border-radius: 50%;
+    font-family: 'Young Serif', Georgia, serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .method b { font-weight: 700; }
+
+  .note {
+    margin-top: 26px;
+    background: var(--note-bg);
+    border-left: 3px solid var(--flavor);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .note b {
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 11px;
+    color: var(--flavor);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 14px;
+    max-width: 520px;
+    margin: 0 auto;
+    border-top: 1px solid var(--line);
+    padding-top: 32px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 720px) {
+    .masthead { padding-top: 48px; }
+    .index { grid-template-columns: 1fr; }
+    .card { padding: 26px 22px 24px; }
+    .card-body { grid-template-columns: 1fr; gap: 26px; }
+    .ingredients {
+      border-bottom: 1px dashed var(--line-dot);
+      padding-bottom: 22px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .chip { transition: none; }
+    .chip:hover { transform: none; }
+  }
+
+  /* ---------- Print ---------- */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .index { display: none; }
+    .card { break-inside: avoid; border-color: #ccc; margin-top: 40px; }
+    .tab, .note, .method li::before {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+
+  a:focus-visible, .chip:focus-visible {
+    outline: 2px solid var(--berry);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Recipe cards · No wheat, no flour</p>
+    <h1>The Flour&#8209;Free Dessert&nbsp;Tin</h1>
+    <p class="lede">Eight desserts that skip wheat and flour entirely — <strong>three classic bakes</strong> that never needed flour in the first place, and <strong>five quick, high&#8209;protein finishes</strong>. Lactose&#8209;free swaps are flagged throughout.</p>
+  </header>
+
+  <nav class="index" aria-label="Recipe index">
+    <div>
+      <h2 class="index-title">The classic bakes</h2>
+      <div class="chips">
+        <a class="chip" href="#chocolate-cake" style="--c: var(--cocoa)"><span class="dot"></span>Flourless Chocolate Cake <span class="chip-meta">serves 8</span></a>
+        <a class="chip" href="#macaroons" style="--c: var(--coconut)"><span class="dot"></span>Coconut Macaroons <span class="chip-meta">makes 18</span></a>
+        <a class="chip" href="#pb-cookies" style="--c: var(--peanut)"><span class="dot"></span>Peanut Butter Cookies <span class="chip-meta">makes 12</span></a>
+      </div>
+    </div>
+    <div>
+      <h2 class="index-title">The protein five</h2>
+      <div class="chips">
+        <a class="chip" href="#mousse" style="--c: var(--mocha)"><span class="dot"></span>Chocolate Protein Mousse <span class="chip-meta">23&#8202;g protein</span></a>
+        <a class="chip" href="#nice-cream" style="--c: var(--strawberry)"><span class="dot"></span>Strawberry Nice Cream <span class="chip-meta">16&#8202;g protein</span></a>
+        <a class="chip" href="#mug-cake" style="--c: var(--cocoa)"><span class="dot"></span>Protein Mug Cake <span class="chip-meta">29&#8202;g protein</span></a>
+        <a class="chip" href="#cheesecake-cups" style="--c: var(--lemon)"><span class="dot"></span>Cheesecake Cups <span class="chip-meta">24&#8202;g protein</span></a>
+        <a class="chip" href="#yogurt-bark" style="--c: var(--berrytab)"><span class="dot"></span>Frozen Yogurt Bark <span class="chip-meta">8&#8202;g protein</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ PART ONE ============ -->
+  <section class="section" aria-labelledby="part-one">
+    <div class="section-head">
+      <p class="section-label">Part one</p>
+      <h2 class="section-title" id="part-one">The classic bakes</h2>
+      <p class="section-note">Old&#8209;fashioned recipes where eggs, nuts, and coconut do the structural work — no flour substitutes to second&#8209;guess.</p>
+    </div>
+
+    <!-- Flourless Chocolate Cake -->
+    <article class="card" id="chocolate-cake" style="--flavor: var(--cocoa)">
+      <span class="tab">Chocolate</span>
+      <header class="card-head">
+        <h3 class="card-title">Flourless Chocolate Cake</h3>
+        <p class="desc">Rich and fudgy — the eggs and chocolate do all the structural work.</p>
+        <ul class="meta">
+          <li>Serves 8</li>
+          <li>25&nbsp;min bake</li>
+          <li>Oven 190&deg;C / 375&deg;F</li>
+        </ul>
+      </header>
+      <div class="card-body">
+        <div class="ingredients">
+          <p class="col-label">Ingredients</p>
+          <ul>
+            <li><b>200&nbsp;g</b> dark chocolate (60&ndash;70%), chopped</li>
+            <li><b>115&nbsp;g</b> unsalted butter</li>
+            <li><b>&frac34; cup</b> granulated sugar</li>
+            <li><b>3</b> large eggs</li>
+            <li><b>&frac12; cup</b> unsweetened cocoa powder</li>
+            <li><b>1&nbsp;tsp</b> vanilla extract</li>
+            <li><b>&frac14;&nbsp;tsp</b> salt</li>
+          </ul>
+        </div>
+        <div class="method">
+          <p class="col-label">Method</p>
+          <ol>
+            <li><b>Prep.</b> Preheat the oven to 190&deg;C / 375&deg;F. Grease an 8&#8209;inch (20&nbsp;cm) round pan and line the base with parchment.</li>
+            <li><b>Melt.</b> Melt the chocolate and butter together in short microwave bursts or over simmering water, stirring until smooth. Let cool slightly.</li>
+            <li><b>Mix.</b> Whisk the sugar into the chocolate, then beat in the eggs one at a time. Stir in the vanilla and salt, then sift in the cocoa and fold until just combined.</li>
+            <li><b>Bake.</b> Pour into the pan and bake about 25 minutes, until the top is set with a thin crust — a toothpick should come out with moist crumbs, not wet batter.</li>
+            <li><b>Cool.</b> Cool in the pan for 10&ndash;15 minutes before releasing. It will sink a little in the middle — that&rsquo;s normal. Dust with cocoa to serve.</li>
+          </ol>
+        </div>
+      </div>
+      <p class="note"><b>Worth knowing</b>If dairy is also a trigger, swap the butter for a lactose&#8209;free or plant&#8209;based version — it works just as well.</p>
+    </article>
+
+    <!-- Coconut Macaroons -->
+    <article class="card" id="macaroons" style="--flavor: var(--coconut)">
+      <span class="tab">Coconut</span>
+      <header class="card-head">
+        <h3 class="card-title">Coconut Macaroons</h3>
+        <p class="desc">Just egg whites, sugar, and coconut — chewy inside, golden outside.</p>
+        <ul class="meta">
+          <li>Makes 18</li>
+          <li>23&nbsp;min bake</li>
+          <li>Oven 160&deg;C / 325&deg;F</li>
+        </ul>
+      </header>
+      <div class="card-body">
+        <div class="ingredients">
+          <p class="col-label">Ingredients</p>
+          <ul>
+            <li><b>4</b> large egg whites</li>
+            <li><b>&frac34; cup</b> granulated sugar</li>
+            <li><b>3 cups</b> shredded unsweetened coconut</li>
+            <li><b>1&nbsp;tsp</b> vanilla extract</li>
+            <li><b>1</b> pinch of salt</li>
+          </ul>
+        </div>
+        <div class="method">
+          <p class="col-label">Method</p>
+          <ol>
+            <li><b>Prep.</b> Preheat the oven to 160&deg;C / 325&deg;F and line a baking sheet with parchment.</li>
+            <li><b>Make the base.</b> Whisk the egg whites, sugar, and salt until frothy, about 2 minutes. Stir in the vanilla, then fold in the coconut until every shred is coated.</li>
+            <li><b>Shape.</b> Scoop heaped tablespoons onto the sheet, squeezing each mound gently so it holds together.</li>
+            <li><b>Bake.</b> Bake about 23 minutes, until the tips and edges are deep golden.</li>
+            <li><b>Cool.</b> Cool on the sheet for 10 minutes — they firm up as they cool.</li>
+          </ol>
+        </div>
+      </div>
+      <p class="note"><b>Worth knowing</b>Coconut is easiest on sensitive stomachs in modest amounts — 2 to 3 macaroons per sitting is a comfortable serve.</p>
+    </article>
+
+    <!-- Peanut Butter Cookies -->
+    <article class="card" id="pb-cookies" style="--flavor: var(--peanut)">
+      <span class="tab">Peanut</span>
+      <header class="card-head">
+        <h3 class="card-title">Flourless Peanut Butter Cookies</h3>
+        <p class="desc">A one&#8209;bowl classic where peanut butter replaces the flour entirely.</p>
+        <ul class="meta">
+          <li>Makes 12</li>
+          <li>~20&nbsp;min total</li>
+          <li>Oven 175&deg;C / 350&deg;F</li>
+        </ul>
+      </header>
+      <div class="card-body">
+        <div class="ingredients">
+          <p class="col-label">Ingredients</p>
+          <ul>
+            <li><b>1 cup</b> natural smooth peanut butter</li>
+            <li><b>&frac34; cup</b> granulated or light brown sugar</li>
+            <li><b>1</b> large egg</li>
+            <li><b>1&nbsp;tsp</b> vanilla extract</li>
+            <li><b>&frac12;&nbsp;tsp</b> baking soda</li>
+            <li><b>1</b> pinch of salt</li>
+          </ul>
+        </div>
+        <div class="method">
+          <p class="col-label">Method</p>
+          <ol>
+            <li><b>Prep.</b> Preheat the oven to 175&deg;C / 350&deg;F and line a baking sheet with parchment.</li>
+            <li><b>Mix.</b> Stir everything together until a thick, uniform dough forms.</li>
+            <li><b>Shape.</b> Roll into 12 balls, space them out on the sheet, and press a criss&#8209;cross into each with a fork.</li>
+            <li><b>Bake.</b> Bake about 11 minutes, until the edges are set — the centers will still look soft.</li>
+            <li><b>Cool.</b> Cool on the sheet for 10 minutes; they&rsquo;re fragile straight from the oven and set as they cool.</li>
+          </ol>
+        </div>
+      </div>
+      <p class="note"><b>Worth knowing</b>Peanut butter tends to sit well in servings of around 2 tablespoons — roughly two cookies&rsquo; worth.</p>
+    </article>
+  </section>
+
+  <!-- ============ PART TWO ============ -->
+  <section class="section" aria-labelledby="part-two">
+    <div class="section-head">
+      <p class="section-label">Part two</p>
+      <h2 class="section-title" id="part-two">The protein five</h2>
+      <p class="section-note">Quick, low&#8209;calorie, protein&#8209;forward desserts built on Greek yogurt, cottage cheese, and protein powder. Whey isolate or plant&#8209;based powders are gentlest if lactose is an issue.</p>
+    </div>
+
+    <!-- Chocolate Protein Mousse -->
+    <article class="card" id="mousse" style="--flavor: var(--mocha)">
+      <span class="tab">Chocolate</span>
+      <header class="card-head">
+        <h3 class="card-title">Chocolate Protein Mousse</h3>
+        <p class="desc">Four ingredients, no cooking — whisked fluffy in a couple of minutes.</p>
+        <ul class="meta">
+          <li>Serves 2</li>
+          <li>5&nbsp;min + optional chill</li>
+          <li>No oven</li>
+          <li class="stat">~145 cal &middot; 23&#8202;g protein per serving</li>
+        </ul>
+      </header>
+      <div class="card-body">
+        <div class="ingredients">
+          <p class="col-label">Ingredients</p>
+          <ul>
+            <li><b>1 cup</b> nonfat Greek yogurt <span class="opt">(lactose&#8209;free if needed)</span></li>
+            <li><b>30&nbsp;g</b> chocolate protein powder</li>
+            <li><b>1&nbsp;tbsp</b> unsweetened cocoa powder</li>
+            <li><b>2&nbsp;tsp</b> maple syrup <span class="opt">(optional, to taste)</span></li>
+          </ul>
+        </div>
+        <div class="method">
+          <p class="col-label">Method</p>
+          <ol>
+            <li><b>Whisk.</b> Whisk the yogurt, protein powder, and cocoa vigorously until completely smooth and slightly fluffy, 1&ndash;2 minutes.</li>
+            <li><b>Sweeten.</b> Taste, then stir in the maple syrup only if it needs it — many protein powders are sweet enough on their own.</li>
+            <li><b>Chill.</b> Chill for 10 minutes to thicken into a proper mousse texture — optional, but worth it. Top with a few strawberries.</li>
+          </ol>
+        </div>
+      </div>
+      <p class="note"><b>Worth knowing</b>Whey isolate or a plant&#8209;based powder is the gentlest choice if lactose is also an issue.</p>
+    </article>
+
+    <!-- Strawberry Protein Nice Cream -->
+    <article class="card" id="nice-cream" style="--flavor: var(--strawberry)">
+      <span class="tab">Strawberry</span>
+      <header class="card-head">
+        <h3 class="card-title">Strawberry Protein Nice Cream</h3>
+        <p class="desc">Blender soft&#8209;serve — the frozen fruit does the work, no ice cream maker.</p>
+        <ul class="meta">
+          <li>Serves 2</li>
+          <li>2&nbsp;min blend</li>
+          <li>No oven</li>
+          <li class="stat">~140 cal &middot; 16&#8202;g protein per serving</li>
+        </ul>
+      </header>
+      <div class="card-body">
+        <div class="ingredients">
+          <p class="col-label">Ingredients</p>
+          <ul>
+            <li><b>2 cups</b> frozen strawberries</li>
+            <li><b>&frac12; cup</b> nonfat Greek yogurt <span class="opt">(lactose&#8209;free if needed)</span></li>
+            <li><b>30&nbsp;g</b> vanilla protein powder</li>
+            <li><b>2&nbsp;tbsp</b> milk of choice</li>
+          </ul>
+        </div>
+        <div class="method">
+          <p class="col-label">Method</p>
+          <ol>
+            <li><b>Blend.</b> Blend everything in a food processor or strong blender, scraping down the sides, until it turns into thick soft&#8209;serve, 1&ndash;2 minutes. Add an extra splash of milk only if it refuses to turn over.</li>
+            <li><b>Serve.</b> Eat straight away as soft&#8209;serve, or freeze for 30&ndash;60 minutes if you want it scoopable.</li>
+          </ol>
+        </div>
+      </div>
+      <p class="note"><b>Worth knowing</b>Strawberries are one of the gentlest fruits for sensitive stomachs — blueberries or pineapple work well too.</p>
+    </article>
+
+    <!-- Protein Mug Cake -->
+    <article class="card" id="mug-cake" style="--flavor: var(--cocoa)">
+      <span class="tab">Chocolate</span>
+      <header class="card-head">
+        <h3 class="card-title">Flourless Protein Mug Cake</h3>
+        <p class="desc">Warm and cake&#8209;like in 90 seconds — zero flour of any kind.</p>
+        <ul class="meta">
+          <li>Serves 1</li>
+          <li>~3&nbsp;min total</li>
+          <li>Microwave</li>
+          <li class="stat">~200 cal &middot; 29&#8202;g protein</li>
+        </ul>
+      </header>
+      <div class="card-body">
+        <div class="ingredients">
+          <p class="col-label">Ingredients</p>
+          <ul>
+            <li><b>30&nbsp;g</b> chocolate protein powder</li>
+            <li><b>1</b> large egg</li>
+            <li><b>2&nbsp;tbsp</b> milk of choice</li>
+            <li><b>&frac14;&nbsp;tsp</b> baking powder</li>
+            <li><b>1</b> pinch of salt</li>
+          </ul>
+        </div>
+        <div class="method">
+          <p class="col-label">Method</p>
+          <ol>
+            <li><b>Mix.</b> In a microwave&#8209;safe mug, whisk the egg and milk together, then stir in the protein powder, baking powder, and salt until no dry pockets remain.</li>
+            <li><b>Microwave.</b> Microwave on high — start checking at 60 seconds and stop the moment the top looks just set. Overcooking is what makes protein cakes rubbery.</li>
+            <li><b>Rest.</b> Let it rest for a minute — it finishes cooking in the mug and stays moist.</li>
+          </ol>
+        </div>
+      </div>
+      <p class="note"><b>Worth knowing</b>A whey&ndash;casein blend or plant protein gives the fluffiest crumb — pure whey isolate turns rubbery fastest, so pull it early if that&rsquo;s what you&rsquo;re using.</p>
+    </article>
+
+    <!-- Cheesecake Cups -->
+    <article class="card" id="cheesecake-cups" style="--flavor: var(--lemon)">
+      <span class="tab">Lemon</span>
+      <header class="card-head">
+        <h3 class="card-title">No&#8209;Bake Protein Cheesecake Cups</h3>
+        <p class="desc">Blended cottage cheese turns completely silky — that&rsquo;s the whole trick.</p>
+        <ul class="meta">
+          <li>Serves 2</li>
+          <li>5&nbsp;min + 30&nbsp;min chill</li>
+          <li>No oven</li>
+          <li class="stat">~155 cal &middot; 24&#8202;g protein per cup</li>
+        </ul>
+      </header>
+      <div class="card-body">
+        <div class="ingredients">
+          <p class="col-label">Ingredients</p>
+          <ul>
+            <li><b>1 cup</b> low&#8209;fat cottage cheese <span class="opt">(lactose&#8209;free if needed)</span></li>
+            <li><b>30&nbsp;g</b> vanilla protein powder</li>
+            <li><b>1&nbsp;tbsp</b> lemon juice</li>
+            <li><b>2&nbsp;tsp</b> maple syrup</li>
+          </ul>
+        </div>
+        <div class="method">
+          <p class="col-label">Method</p>
+          <ol>
+            <li><b>Blend smooth.</b> Blend the cottage cheese in a food processor or blender until completely silky, 1&ndash;2 minutes, scraping down the sides partway through.</li>
+            <li><b>Flavor.</b> Add the protein powder, lemon juice, and maple syrup and blend again until fully combined. Taste and adjust — more lemon for tang, a touch more maple for sweetness.</li>
+            <li><b>Chill.</b> Divide between two small cups or ramekins and chill 30 minutes, until cold and set. Top with a few berries before serving.</li>
+          </ol>
+        </div>
+      </div>
+      <p class="note"><b>Worth knowing</b>The long blend is what makes it taste like cheesecake instead of cottage cheese — don&rsquo;t cut it short. A little lemon zest on top makes it brighter.</p>
+    </article>
+
+    <!-- Frozen Yogurt Bark -->
+    <article class="card" id="yogurt-bark" style="--flavor: var(--berrytab)">
+      <span class="tab">Berries</span>
+      <header class="card-head">
+        <h3 class="card-title">Frozen Yogurt Bark</h3>
+        <p class="desc">A two&#8209;ingredient base and five minutes of work — the freezer does the rest.</p>
+        <ul class="meta">
+          <li>Serves 4</li>
+          <li>5&nbsp;min + 3&nbsp;h freeze</li>
+          <li>No oven</li>
+          <li class="stat">~80 cal &middot; 8&#8202;g protein per serving</li>
+        </ul>
+      </header>
+      <div class="card-body">
+        <div class="ingredients">
+          <p class="col-label">Ingredients</p>
+          <ul>
+            <li><b>1&frac12; cups</b> nonfat Greek yogurt <span class="opt">(lactose&#8209;free if needed)</span></li>
+            <li><b>1 cup</b> strawberries, sliced <span class="opt">(or blueberries)</span></li>
+            <li><b>2&nbsp;tsp</b> maple syrup <span class="opt">(optional)</span></li>
+            <li><b>1&nbsp;tbsp</b> dark chocolate, finely chopped <span class="opt">(optional)</span></li>
+          </ul>
+        </div>
+        <div class="method">
+          <p class="col-label">Method</p>
+          <ol>
+            <li><b>Spread.</b> Line a small baking tray with parchment. Stir the maple syrup into the yogurt if using, then spread the yogurt about 1&nbsp;cm (half an inch) thick.</li>
+            <li><b>Top.</b> Scatter the fruit and chocolate over the top, pressing the fruit in lightly so it anchors into the yogurt.</li>
+            <li><b>Freeze.</b> Freeze flat for about 3 hours, until completely solid, then snap into shards.</li>
+            <li><b>Store.</b> Keep the shards in a freezer bag or container — they last for weeks.</li>
+          </ol>
+        </div>
+      </div>
+      <p class="note"><b>Worth knowing</b>Nonfat yogurt melts fast, so eat pieces straight from the freezer. Swirling in a spoonful of the protein mousse turns this into a higher&#8209;protein version.</p>
+    </article>
+  </section>
+
+  <footer class="footer">
+    <p>Every quantity here scales cleanly, so halve or double as needed. Calorie and protein figures are approximate and depend on your brands — and even the friendliest ingredients are happiest in moderate portions.</p>
+  </footer>
+
+</div>
+</body>
+</html>
